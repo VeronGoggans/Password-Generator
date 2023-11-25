@@ -1,0 +1,115 @@
+import string
+import random
+import customtkinter
+from customtkinter import *
+from PIL import Image
+from tkinter import PhotoImage
+import os 
+
+
+class Keyboard:
+
+    @staticmethod
+    def characters():
+        return list(string.ascii_letters)
+    
+    @staticmethod
+    def symbols():
+        return list(string.punctuation)
+    
+    @staticmethod
+    def numbers():
+        return list(string.digits)
+    
+
+class PasswordGenerator:
+    def __init__(self):
+        self.password_length = 0
+        self.characters: list = Keyboard.characters()
+        self.symbols: list = Keyboard.symbols()
+        self.numbers: list = Keyboard.numbers()
+        self.cwd = os.getcwd()
+
+        # Customtkinter window settings.
+        self.window = CTk()
+        self.window.title = 'Pass Gen'
+        customtkinter.set_appearance_mode('dark')
+        self.window.geometry('600x500') 
+        self.window.minsize(600, 500)
+        self.window.maxsize(600, 500)
+        self.app_icon = PhotoImage(file=f'{self.cwd}/img/lock_app_icon.png')
+        self.window.iconphoto(False, self.app_icon)
+
+        # App colors.
+        self.primary = '#282b40'
+        self.secondary = '#5c7dff'
+        self.tertiary = '#466afa'
+        self.charcoal = '#444863'
+        self.neon_purple = '#b869fe'
+
+        # Customtkinter widgets below.
+        self.background_frame = CTkFrame(self.window, fg_color=self.primary, corner_radius=0) 
+        self.app_image = CTkImage(dark_image=Image.open(f'{self.cwd}/img/lock_image.png'), size=(150, 150)) 
+
+        self.app_image_label = CTkLabel(self.background_frame, text='', image=self.app_image)   
+        self.password_length_label = CTkLabel(self.background_frame, text='Password length: 0', font=('Helvetica', 15)) 
+        self.password_label = CTkLabel(self.background_frame, text='Generated password', font=('Helvetica', 15))
+
+        self.password_length_entry = CTkEntry(self.background_frame, width=40, fg_color=self.primary, border_color=self.secondary, border_width=2)
+        self.password_entry = CTkEntry(self.background_frame, width=300, fg_color=self.primary, border_color=self.secondary, border_width=2) 
+
+        self.gen_password_button = CTkButton(self.background_frame, text='Generate!', font=('Helvetica', 20), fg_color=self.secondary, hover_color=self.tertiary , width=300, height=40, corner_radius=20, command=self.__run)
+        self.password_length_slider = CTkSlider(self.background_frame, width=300, from_=0, to=30, fg_color=self.tertiary, button_color=self.charcoal, button_hover_color=self.charcoal, progress_color=self.neon_purple, command=self.__sliding)
+        
+        # Calling the render method will place all CTK widgets on the window.
+        self.__render() 
+        self.window.mainloop()
+
+    
+    def __render(self):
+        self.background_frame.pack(fill='both', expand=True)
+        self.app_image_label.pack(side=TOP, pady=30)
+        self.password_length_label.place(x=235, y=220)
+        self.password_label.place(x=230, y=290)
+        self.password_entry.place(x=150, y=325)
+        self.gen_password_button.place(x=150, y=400)
+        self.password_length_slider.place(x=150, y=250)
+        self.password_length_slider.set(0)
+
+
+    def __run(self):
+        self.__user_input()
+        self.password_entry.insert(0, self.__generate())
+        self.__readonly()
+
+
+    def __user_input(self):
+        self.password_length = int(round(self.password_length_slider.get()))
+
+    
+    def __generate(self):
+        self.__editable()
+        self.__clear_old_password()
+        password = []
+        keys = self.characters + self.symbols + self.numbers
+
+        for _ in range(self.password_length):
+            password.append(random.choice(keys))
+
+        random.shuffle(password)
+        return ''.join(password)
+    
+    def __sliding(self, value):
+        self.password_length_label.configure(text=f'Password length {round(value)}')
+
+    def __readonly(self):
+        self.password_entry.configure(state='readonly')
+
+    def __editable(self):
+        self.password_entry.configure(state='normal')
+
+    def __clear_old_password(self):
+        self.password_entry.delete(0, END)
+
+
+my_password_generator = PasswordGenerator()
