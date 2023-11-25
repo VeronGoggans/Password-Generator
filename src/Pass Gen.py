@@ -37,7 +37,7 @@ class PasswordGenerator:
         self.window.geometry('600x500') 
         self.window.minsize(600, 500)
         self.window.maxsize(600, 500)
-        self.app_icon = PhotoImage(file=f'{self.cwd}/Password-Generator/img/lock_app_icon.png')
+        self.app_icon = PhotoImage(file=f'{self.cwd}/_internal/lock_app_icon.png')
         self.window.iconphoto(False, self.app_icon)
 
         # App colors.
@@ -49,7 +49,7 @@ class PasswordGenerator:
 
         # Customtkinter widgets below.
         self.background_frame = CTkFrame(self.window, fg_color=self.primary, corner_radius=0) 
-        self.app_image = CTkImage(dark_image=Image.open(f'{self.cwd}/Password-Generator/img/lock_image.png'), size=(150, 150)) 
+        self.app_image = CTkImage(dark_image=Image.open(f'{self.cwd}/_internal/lock_image.png'), size=(150, 150)) 
 
         self.app_image_label = CTkLabel(self.background_frame, text='', image=self.app_image)   
         self.password_length_label = CTkLabel(self.background_frame, text='Password length: 0', font=('Helvetica', 15)) 
