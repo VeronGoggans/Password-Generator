@@ -6,34 +6,31 @@ class Theme:
         self.parser = ConfigParser()
         self.settings_file = f'{os.getcwd()}/Password-Generator/src/settings.ini'
 
-    def colors(self, theme: str) -> list: 
+
+    def colors(self) -> list: 
+        theme = self.get_theme()
         self.parser.read(self.settings_file)
         primary = self.parser.get(theme, 'primary')
-        secondary = self.parser.get('theme', 'secondary')
-        tertiary = self.parser.get('theme', 'tertiary')
-        slider_button = self.parser.get('theme', 'slider_button')
-        accent = self.parser.get('theme', 'accent')
-        text = self.parser.get('theme', 'text')
+        secondary = self.parser.get(theme, 'secondary')
+        tertiary = self.parser.get(theme, 'tertiary')
+        slider_button = self.parser.get(theme, 'slider_button')
+        accent = self.parser.get(theme, 'accent')
+        text = self.parser.get(theme, 'text')
         return [primary, secondary, tertiary, slider_button, accent, text]
     
+
     def get_theme(self):
         self.parser.read(self.settings_file)
         return self.parser.get('theme', 'theme')
     
-    def set_theme(self, theme: str):
+
+    def set_theme(self):
         self.parser.read(self.settings_file)
-        self.parser.set('theme', 'theme', theme)
 
-    
-    def lightmode(self) -> list:
-        return self.__colors()
+        if len(self.get_theme()) == 4:
+            self.parser.set('theme', 'theme', 'light')
+        else:
+            self.parser.set('theme', 'theme', 'dark')
 
-    def darkmode(self) -> list:
-        return self.__colors()
-    
-
-    def __set_colors(self, mode: str):
-        with open('settings.ini', 'w') as configfile:
+        with open(self.settings_file, 'w') as configfile:
             self.parser.write(configfile)
-            configfile.close()
-        pass
