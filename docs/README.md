@@ -10,6 +10,11 @@ This is a simple password generator that can generate random passwords up to 35 
 ### Switching themes 
 Hold **Control** and press **m** to switch between light mode and dark mode.
 
+
+
+
+
+
 **Install guide.**
 1. Clone repository.
 2. pip install auto-py-to-exe.
