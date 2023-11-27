@@ -1,7 +1,14 @@
 # Password-Generator
 This is a simple password generator that can generate random passwords up to 35 charachters.
 
-![App Preview](https://github.com/VeronGoggans/Password-Generator/blob/main/docs/img/App_preview.png?raw=true)
+## Light mode
+![lightmode](https://github.com/VeronGoggans/Password-Generator/blob/main/docs/img/Screenshot%202023-11-27%20181625.png?raw=true)
+
+## Dark mode
+![darkmode](https://github.com/VeronGoggans/Password-Generator/blob/main/docs/img/Screenshot%202023-11-27%20181719.png?raw=true)
+
+### Switching themes 
+Hold **Control** and press **m** to switch between light mode and dark mode.
 
 **Install guide.**
 1. Clone repository.
