@@ -57,7 +57,7 @@ class PasswordGenerator:
         self.password_length_entry = CTkEntry(self.background_frame, width=40, fg_color=self.primary, border_color=self.secondary, border_width=2)
         self.password_entry = CTkEntry(self.background_frame, justify='center' , width=300, fg_color=self.primary, border_color=self.secondary, text_color=self.text, border_width=2) 
 
-        self.gen_password_button = CTkButton(self.background_frame, text='Generate!', font=('Helvetica', 20), fg_color=self.secondary, hover_color=self.tertiary, text_color='#ffffff', width=300, height=40, corner_radius=20, command=self.__run)
+        self.gen_password_button = CTkButton(self.background_frame, text='Generate', font=('Helvetica', 20), fg_color=self.secondary, hover_color=self.tertiary, text_color='#ffffff', width=300, height=40, corner_radius=20, command=self.__run)
         self.password_length_slider = CTkSlider(self.background_frame, width=300, from_=0, to=35, fg_color=self.tertiary, button_color=self.charcoal, button_hover_color=self.charcoal, progress_color=self.neon_purple, command=self.__sliding)
 
         # Key bindings.
@@ -170,6 +170,6 @@ class PasswordGenerator:
         self.password_label.configure(text_color=theme_colors[-1])
         self.password_length_label.configure(text_color=theme_colors[-1])
         self.__switch_image()
-        
+
 
 my_password_generator = PasswordGenerator()
